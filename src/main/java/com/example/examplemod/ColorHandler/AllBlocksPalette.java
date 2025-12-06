@@ -26,7 +26,7 @@ public class AllBlocksPalette {
     private static final BlockPos DUMMY_POS = BlockPos.ZERO;
 
     public static void buildPalette() {
-        Minecraft mc = Minecraft.getInstance();
+        Minecraft minecraft = Minecraft.getInstance();
 
         for (Block block : ForgeRegistries.BLOCKS.getValues()) {
             ResourceLocation id = ForgeRegistries.BLOCKS.getKey(block);
@@ -44,12 +44,12 @@ public class AllBlocksPalette {
             ResourceLocation textureLoc = new ResourceLocation(id.getNamespace(), path);
 
             try {
-                Resource res = mc.getResourceManager().getResource(textureLoc);
+                Resource resource = minecraft.getResourceManager().getResource(textureLoc);
 
-                try (InputStream is = res.getInputStream()) {
-                    BufferedImage img = ImageIO.read(is);
-                    double[] lab = computeAverageLab(img);
-                    PALETTE.put(block, new Entry(block, lab));
+                try (InputStream inputStream = resource.getInputStream()) {
+                    BufferedImage bufferedImage = ImageIO.read(inputStream);
+                    double[] averageLab = computeAverageLab(bufferedImage);
+                    PALETTE.put(block, new Entry(block, averageLab));
                 }
             } catch (Exception e) {
             }
